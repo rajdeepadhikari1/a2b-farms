@@ -58,6 +58,7 @@ export default function AdminDashboard() {
     <div className="space-y-10">
       <div className="flex items-end justify-between">
         <div>
+          <p className="text-4xl font-serif font-bold italic mb-2">*</p>
           <h1 className="text-4xl font-serif font-bold italic mb-2">Overview</h1>
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Daily performance metrics and operations</p>
         </div>
