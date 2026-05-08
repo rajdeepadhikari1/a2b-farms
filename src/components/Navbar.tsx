@@ -242,11 +242,11 @@ export default function Navbar() {
               {/* Mobile Menu Header */}
               <div className="p-5 border-b border-stone-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <img 
-                    src="/logo_a2b.jpeg" 
-                    alt="A2B Farms" 
-                    className="w-10 h-10 object-contain rounded-full" 
-                  />
+                <img 
+                  src="https://res.cloudinary.com/dxbbz0b8m/image/upload/v1/a2b_farms/logo" 
+                  alt="A2B Farms" 
+                  className="w-10 h-10 object-contain rounded-full"
+                />
                   <div>
                     <span className="text-lg font-bold tracking-tighter text-stone-900 font-serif block">A2B FARMS</span>
                     <span className="text-[8px] text-stone-400 tracking-widest">LIVE FARM</span>
