@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2">
-              <img src="/logo_a2b.jpeg" alt="A2B Farms" className="w-8 h-8 object-contain" referrerPolicy="no-referrer" />
+              <img src="/logo.png" alt="A2B Farms" className="w-8 h-8 object-contain" referrerPolicy="no-referrer" />
               <span className="text-xl font-bold tracking-tighter text-stone-900 font-serif">A2B FARMS</span>
             </Link>
             <p className="text-stone-600 text-sm leading-relaxed max-w-xs">
