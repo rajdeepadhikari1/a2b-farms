@@ -2,9 +2,16 @@
   "version": 2,
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*\\.(jpg|jpeg|png|gif|svg|ico|css|js|json|webp|avif|woff|woff2|ttf|eot))",
       "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
-  ],
-  "public": true
+  ]
 }
