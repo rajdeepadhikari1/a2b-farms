@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2">
               <img 
-                src="https://res.cloudinary.com/dxbbz0b8m/image/upload/v1/a2b_farms/logo" 
+                src="https://res.cloudinary.com/dxbbz0b8m/image/upload/v1778228602/logo_su4gi9.png"
                 alt="A2B Farms" 
                 className="w-8 h-8 object-contain rounded-full" 
                 referrerPolicy="no-referrer" 
