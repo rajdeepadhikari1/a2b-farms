@@ -4,24 +4,31 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+// Hardcoded fallback values for Vercel deployment
+// These will only be used if environment variables are missing
+const FALLBACK_CONFIG = {
+  apiKey: "AIzaSyDm__qnJbHdCQzhvmYhP3WeqWhBc6_PPw8",
+  authDomain: "a2b-farms-c934b.firebaseapp.com",
+  projectId: "a2b-farms-c934b",
+  storageBucket: "a2b-farms-c934b.firebasestorage.app",
+  messagingSenderId: "246783254449",
+  appId: "1:246783254449:web:e9e01aa035ad9a8afba790",
+  measurementId: "G-T3PM5SLBL7"
 };
 
-// 🔴 SAFETY CHECK (prevents silent Firebase failure)
-const missingKeys = Object.entries(firebaseConfig)
-  .filter(([key, value]) => !value && key !== 'measurementId')
-  .map(([key]) => `VITE_FIREBASE_${key.replace(/([A-Z])/g, '_$1').toUpperCase()}`);
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || FALLBACK_CONFIG.apiKey,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || FALLBACK_CONFIG.authDomain,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || FALLBACK_CONFIG.projectId,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || FALLBACK_CONFIG.storageBucket,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || FALLBACK_CONFIG.messagingSenderId,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || FALLBACK_CONFIG.appId,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || FALLBACK_CONFIG.measurementId
+};
 
-if (missingKeys.length > 0) {
-  console.error(`❌ Firebase config missing. Please check your "Settings" menu or .env file for: ${missingKeys.join(', ')}`);
-}
+// Check which source is being used
+const usingEnv = !!import.meta.env.VITE_FIREBASE_API_KEY;
+console.log(usingEnv ? "📦 Using environment variables for Firebase" : "⚠️ Using fallback config for Firebase");
 
 // Initialize Firebase safely
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -30,7 +37,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-// Safe Analytics initialization (prevents Render crash)
+// Safe Analytics initialization
 export const analytics =
   typeof window !== 'undefined'
     ? isSupported()
@@ -86,13 +93,13 @@ export function handleFirestoreError(error: any, operationType: FirestoreErrorIn
   throw new Error(JSON.stringify(errorInfo));
 }
 
-// ✅ ADD THIS: Cloudinary configuration export (for dataService.ts)
+// Cloudinary configuration with fallback
 export const cloudinaryConfig = {
   cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "dxbbz0b8m",
   uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "a2b_farms_preset"
 };
 
-// ✅ ADD THIS: Helper function to get Cloudinary config
+// Helper function to get Cloudinary config
 export const getCloudinaryConfig = () => {
   return cloudinaryConfig;
 };
