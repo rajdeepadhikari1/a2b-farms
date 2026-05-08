@@ -100,7 +100,7 @@ export default function Navbar() {
               className="flex items-center gap-2 lg:absolute lg:left-1/2 lg:-translate-x-1/2"
             >
               <img 
-                src="/logo_a2b.jpeg" 
+                src="/logo.png" 
                 alt="A2B Farms" 
                 className="w-8 h-8 md:w-10 md:h-10 object-contain rounded-full" 
                 referrerPolicy="no-referrer" 
