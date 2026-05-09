@@ -115,6 +115,7 @@ export default function AdminBlogs() {
     <div className="space-y-10">
       <div className="flex items-end justify-between">
         <div>
+          <h1 className="text-4xl font-serif font-bold italic mb-2 text-stone-900">*</h1>
           <h1 className="text-4xl font-serif font-bold italic mb-2 text-stone-900">Journal</h1>
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Content management and editorial</p>
         </div>

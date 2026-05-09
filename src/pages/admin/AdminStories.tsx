@@ -74,6 +74,7 @@ export default function AdminStories() {
     <div className="space-y-10">
       <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
         <div>
+          <h1 className="text-3xl md:text-4xl font-serif font-bold italic mb-2 text-stone-900">*</h1>
           <h1 className="text-3xl md:text-4xl font-serif font-bold italic mb-2 text-stone-900">Life at Farm</h1>
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Temporary narratives and behind-the-scenes</p>
         </div>

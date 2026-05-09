@@ -67,6 +67,7 @@ export default function AdminMessages() {
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-8">
         <div>
+          <h1 className="text-3xl font-serif font-bold italic mb-2">*</h1>
           <h1 className="text-3xl font-serif font-bold italic mb-2">Customer Inquiries</h1>
           <p className="text-[10px] uppercase tracking-widest text-stone-500 font-black">Manage messages and replies</p>
         </div>
