@@ -195,7 +195,7 @@ export default function AdminProducts() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl md:text-4xl font-serif font-bold italic mb-2 text-stone-900">Inventory</h1>
+          <h1 className="text-3xl md:text-4xl font-serif font-bold italic mb-2 text-stone-900">*<br />Inventory</h1>
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Manage your farm product catalog</p>
         </div>
         <button 
