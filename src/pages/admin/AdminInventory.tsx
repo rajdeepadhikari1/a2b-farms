@@ -64,7 +64,6 @@ export default function AdminInventory() {
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <h1 className="text-4xl font-serif font-bold italic tracking-tight">*</h1>
-            <h1 className="text-4xl font-serif font-bold italic tracking-tight">*</h1>
             <h1 className="text-4xl font-serif font-bold italic tracking-tight">Inventory Management</h1>
           </div>
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Stock control, levels and replenishment</p>
