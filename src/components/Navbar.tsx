@@ -249,7 +249,6 @@ export default function Navbar() {
                   />
                   <div>
                     <span className="text-lg font-bold tracking-tighter text-stone-900 font-serif block">A2B FARMS</span>
-                    <span className="text-[8px] text-stone-400 tracking-widest">LIVE FARM</span>
                   </div>
                 </div>
                 <button 
