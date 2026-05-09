@@ -157,7 +157,6 @@ export default function AdminProducts() {
 
     try {
       if (editingProduct) {
-        // Update existing product with new images
         await dataService.updateProduct(
           editingProduct.id, 
           productData as Partial<Product>, 
@@ -185,7 +184,6 @@ export default function AdminProducts() {
     p.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Cleanup preview URLs on component unmount
   useEffect(() => {
     return () => {
       imagePreviews.forEach(preview => URL.revokeObjectURL(preview));
@@ -193,25 +191,25 @@ export default function AdminProducts() {
   }, [imagePreviews]);
 
   return (
-    <div className="space-y-10">
-      <div className="flex items-end justify-between">
+    <div className="space-y-6 md:space-y-10">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-serif font-bold italic mb-2 text-stone-900">*</h1>
-          <h1 className="text-4xl font-serif font-bold italic mb-2 text-stone-900">Inventory</h1>
+          <h1 className="text-3xl md:text-4xl font-serif font-bold italic mb-2 text-stone-900">Inventory</h1>
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Manage your farm product catalog</p>
         </div>
         <button 
           onClick={() => handleOpenModal()}
-          className="bg-stone-900 text-white px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-all flex items-center gap-3"
+          className="bg-stone-900 text-white px-6 md:px-8 py-3 md:py-4 text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-all flex items-center justify-center gap-3"
         >
           <Plus className="w-4 h-4" /> Add New Item
         </button>
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white border border-stone-200 p-4 flex items-center gap-6">
-        <div className="flex-1 flex items-center gap-3 px-4 py-2 bg-stone-50 border border-stone-100">
-          <Search className="w-4 h-4 text-stone-400" />
+      <div className="bg-white border border-stone-200 p-3 md:p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6">
+        <div className="flex-1 flex items-center gap-3 px-3 py-2 bg-stone-50 border border-stone-100">
+          <Search className="w-4 h-4 text-stone-400 flex-shrink-0" />
           <input 
             type="text" 
             placeholder="Search catalog..." 
@@ -220,63 +218,63 @@ export default function AdminProducts() {
             className="bg-transparent border-none text-xs focus:outline-none w-full py-1"
           />
         </div>
-        <button className="flex items-center gap-2 px-6 py-3 border border-stone-200 text-[10px] font-black uppercase tracking-widest hover:border-stone-900 transition-all">
+        <button className="flex items-center justify-center gap-2 px-4 py-2 border border-stone-200 text-[10px] font-black uppercase tracking-widest hover:border-stone-900 transition-all">
           <Filter className="w-3 h-3" /> Filters
         </button>
       </div>
 
-      {/* Product Table */}
-      <div className="bg-white border border-stone-200 overflow-hidden">
+      {/* Product Table - Responsive with horizontal scroll */}
+      <div className="bg-white border border-stone-200 overflow-x-auto">
         {loading ? (
           <div className="p-20 text-center space-y-4">
              <Loader2 className="w-8 h-8 animate-spin text-stone-300 mx-auto" />
              <p className="text-[10px] font-black uppercase tracking-widest text-stone-400">Syncing Catalog...</p>
           </div>
         ) : (
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse min-w-[640px]">
             <thead>
               <tr className="bg-stone-50 border-b border-stone-100">
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Product</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Category</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Price</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Stock</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-stone-400 text-right">Actions</th>
+                <th className="px-4 md:px-8 py-4 md:py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Product</th>
+                <th className="px-4 md:px-8 py-4 md:py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Category</th>
+                <th className="px-4 md:px-8 py-4 md:py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Price</th>
+                <th className="px-4 md:px-8 py-4 md:py-5 text-[10px] font-black uppercase tracking-widest text-stone-400">Stock</th>
+                <th className="px-4 md:px-8 py-4 md:py-5 text-[10px] font-black uppercase tracking-widest text-stone-400 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredProducts.map((product) => (
                 <tr key={product.id} className="border-b border-stone-100 hover:bg-stone-50 transition-colors group">
-                  <td className="px-8 py-6">
-                    <div className="flex items-center gap-5">
-                      <div className="w-14 h-14 bg-stone-100 border border-stone-200 flex-shrink-0">
+                  <td className="px-4 md:px-8 py-4 md:py-6">
+                    <div className="flex items-center gap-3 md:gap-5">
+                      <div className="w-10 h-10 md:w-14 md:h-14 bg-stone-100 border border-stone-200 flex-shrink-0">
                         <img src={product.images?.[0] || '/placeholder.jpg'} alt="" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
                       </div>
                       <div>
                         <p className="text-xs font-black uppercase tracking-widest text-stone-900 mb-1">{product.name}</p>
-                        <p className="text-[10px] font-mono text-stone-400">ID: #{product.id.slice(0, 8)}</p>
+                        <p className="text-[9px] md:text-[10px] font-mono text-stone-400">ID: #{product.id.slice(0, 8)}</p>
                         {product.images && product.images.length > 1 && (
                           <p className="text-[8px] text-stone-400 mt-1">{product.images.length} images</p>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td className="px-8 py-6">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-stone-500 bg-stone-100 px-3 py-1 border border-stone-200">
+                  <td className="px-4 md:px-8 py-4 md:py-6">
+                    <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-stone-500 bg-stone-100 px-2 md:px-3 py-1 border border-stone-200 whitespace-nowrap">
                       {product.category}
                     </span>
                   </td>
-                  <td className="px-8 py-6">
-                    <p className="text-xs font-bold text-stone-900">₹{product.price.toLocaleString()}</p>
+                  <td className="px-4 md:px-8 py-4 md:py-6">
+                    <p className="text-xs font-bold text-stone-900 whitespace-nowrap">₹{product.price.toLocaleString()}</p>
                   </td>
-                  <td className="px-8 py-6">
-                    <div className="flex flex-col gap-2">
+                  <td className="px-4 md:px-8 py-4 md:py-6">
+                    <div className="flex flex-col gap-2 min-w-[80px]">
                        <span className={cn(
-                         "text-[10px] font-black uppercase tracking-widest",
+                         "text-[9px] md:text-[10px] font-black uppercase tracking-widest",
                          (product as any).stock < 10 ? "text-amber-600" : "text-stone-400"
                        )}>
                          {(product as any).stock} Available
                        </span>
-                       <div className="w-24 h-1 bg-stone-100 rounded-full overflow-hidden">
+                       <div className="w-20 md:w-24 h-1 bg-stone-100 rounded-full overflow-hidden">
                           <div 
                             className={cn("h-full rounded-full", (product as any).stock < 10 ? "bg-amber-500" : "bg-green-500")}
                             style={{ width: `${Math.min(((product as any).stock / 50) * 100, 100)}%` }}
@@ -284,33 +282,33 @@ export default function AdminProducts() {
                        </div>
                     </div>
                   </td>
-                  <td className="px-8 py-6 text-right">
-                    <div className="flex items-center justify-end gap-2">
+                  <td className="px-4 md:px-8 py-4 md:py-6 text-right">
+                    <div className="flex items-center justify-end gap-1 md:gap-2">
                       <button 
                         onClick={() => handleOpenModal(product)}
-                        className="p-3 bg-white border border-stone-200 text-stone-400 hover:text-stone-900 hover:border-stone-900 transition-all"
+                        className="p-2 md:p-3 bg-white border border-stone-200 text-stone-400 hover:text-stone-900 hover:border-stone-900 transition-all"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button 
                         onClick={() => handleDelete(product.id)}
-                        className="p-3 bg-white border border-stone-200 text-stone-400 hover:text-red-600 hover:border-red-600 transition-all"
+                        className="p-2 md:p-3 bg-white border border-stone-200 text-stone-400 hover:text-red-600 hover:border-red-600 transition-all"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </td>
-                 </tr>
+                </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
 
-      {/* Modal */}
+      {/* Modal - Mobile Responsive */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -324,9 +322,9 @@ export default function AdminProducts() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto border border-stone-200 shadow-2xl rounded-lg"
             >
-              <div className="p-6 border-b border-stone-100 flex items-center justify-between sticky top-0 bg-white z-10">
+              <div className="p-4 sm:p-6 border-b border-stone-100 flex items-center justify-between sticky top-0 bg-white z-10">
                 <div>
-                  <h2 className="text-2xl font-serif font-bold italic tracking-tight">
+                  <h2 className="text-xl sm:text-2xl font-serif font-bold italic tracking-tight">
                     {editingProduct ? 'Update Inventory' : 'Add New Product'}
                   </h2>
                   <p className="text-[10px] font-black uppercase tracking-widest text-stone-400 mt-1">
@@ -334,12 +332,12 @@ export default function AdminProducts() {
                   </p>
                 </div>
                 <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-stone-50 transition-colors rounded-full">
-                  <X className="w-6 h-6 text-stone-400" />
+                  <X className="w-5 h-5 md:w-6 md:h-6 text-stone-400" />
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="p-6 space-y-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6 md:space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                   {/* Left Column: Media */}
                   <div className="space-y-4">
                     <label className="text-[10px] font-black uppercase tracking-widest text-stone-500 block">
@@ -372,29 +370,29 @@ export default function AdminProducts() {
                               type="button"
                               onClick={() => setCurrentImageIndex(prev => Math.max(0, prev - 1))}
                               className={cn(
-                                "absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-all",
+                                "absolute left-2 top-1/2 -translate-y-1/2 p-1.5 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-all",
                                 currentImageIndex === 0 && "opacity-50 cursor-not-allowed"
                               )}
                               disabled={currentImageIndex === 0}
                             >
-                              <ChevronLeft className="w-5 h-5" />
+                              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                             <button
                               type="button"
                               onClick={() => setCurrentImageIndex(prev => Math.min(getTotalImageCount() - 1, prev + 1))}
                               className={cn(
-                                "absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-all",
+                                "absolute right-2 top-1/2 -translate-y-1/2 p-1.5 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-all",
                                 currentImageIndex === getTotalImageCount() - 1 && "opacity-50 cursor-not-allowed"
                               )}
                               disabled={currentImageIndex === getTotalImageCount() - 1}
                             >
-                              <ChevronRight className="w-5 h-5" />
+                              <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                           </>
                         )}
                         
                         {/* Image Counter */}
-                        <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-full">
+                        <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">
                           {currentImageIndex + 1} / {getTotalImageCount()}
                         </div>
                       </div>
@@ -409,7 +407,7 @@ export default function AdminProducts() {
                               type="button"
                               onClick={() => setCurrentImageIndex(idx)}
                               className={cn(
-                                "w-16 h-16 rounded-md overflow-hidden border-2",
+                                "w-12 h-12 md:w-16 md:h-16 rounded-md overflow-hidden border-2",
                                 currentImageIndex === idx ? "border-green-500" : "border-stone-200"
                               )}
                             >
@@ -418,9 +416,9 @@ export default function AdminProducts() {
                             <button
                               type="button"
                               onClick={() => handleRemoveExistingImage(idx)}
-                              className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                              className="absolute -top-2 -right-2 p-0.5 md:p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
                             >
-                              <Trash className="w-3 h-3" />
+                              <Trash className="w-2.5 h-2.5 md:w-3 md:h-3" />
                             </button>
                           </div>
                         ))}
@@ -430,7 +428,7 @@ export default function AdminProducts() {
                               type="button"
                               onClick={() => setCurrentImageIndex(getVisibleExistingImages().length + idx)}
                               className={cn(
-                                "w-16 h-16 rounded-md overflow-hidden border-2",
+                                "w-12 h-12 md:w-16 md:h-16 rounded-md overflow-hidden border-2",
                                 currentImageIndex === getVisibleExistingImages().length + idx ? "border-green-500" : "border-stone-200"
                               )}
                             >
@@ -439,9 +437,9 @@ export default function AdminProducts() {
                             <button
                               type="button"
                               onClick={() => handleRemoveNewImage(idx)}
-                              className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                              className="absolute -top-2 -right-2 p-0.5 md:p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
                             >
-                              <Trash className="w-3 h-3" />
+                              <Trash className="w-2.5 h-2.5 md:w-3 md:h-3" />
                             </button>
                           </div>
                         ))}
@@ -451,7 +449,7 @@ export default function AdminProducts() {
                     {/* Upload Area */}
                     {getTotalImageCount() < MAX_IMAGES && (
                       <div
-                        className="border-2 border-dashed border-stone-300 rounded-lg p-6 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition-all"
+                        className="border-2 border-dashed border-stone-300 rounded-lg p-4 md:p-6 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition-all"
                         onClick={() => document.getElementById('image-upload')?.click()}
                       >
                         <input 
@@ -462,25 +460,25 @@ export default function AdminProducts() {
                           className="hidden" 
                           onChange={handleImageSelect}
                         />
-                        <Upload className="w-8 h-8 text-stone-400 mx-auto mb-2" />
-                        <p className="text-[10px] font-black uppercase tracking-widest text-stone-500">
+                        <Upload className="w-6 h-6 md:w-8 md:h-8 text-stone-400 mx-auto mb-2" />
+                        <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-stone-500">
                           Upload {MAX_IMAGES - getTotalImageCount()} more image{MAX_IMAGES - getTotalImageCount() !== 1 ? 's' : ''}
                         </p>
-                        <p className="text-[8px] text-stone-400 mt-1">PNG, JPG up to 5MB each</p>
+                        <p className="text-[7px] md:text-[8px] text-stone-400 mt-1">PNG, JPG up to 5MB each</p>
                       </div>
                     )}
 
                     {/* Restore Removed Images */}
                     {imagesToRemove.length > 0 && (
                       <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-                        <p className="text-[10px] font-bold text-amber-700 mb-2">Removed images:</p>
+                        <p className="text-[9px] md:text-[10px] font-bold text-amber-700 mb-2">Removed images:</p>
                         <div className="flex gap-2 flex-wrap">
                           {imagesToRemove.map((idx) => (
                             <button
                               key={idx}
                               type="button"
                               onClick={() => handleRestoreExistingImage(idx)}
-                              className="text-[9px] bg-white border border-amber-300 rounded-full px-2 py-1 text-amber-700 hover:bg-amber-100"
+                              className="text-[8px] md:text-[9px] bg-white border border-amber-300 rounded-full px-2 py-1 text-amber-700 hover:bg-amber-100"
                             >
                               Restore image {idx + 1}
                             </button>
@@ -499,7 +497,7 @@ export default function AdminProducts() {
                         type="text" 
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full border border-stone-200 px-4 py-3 text-sm focus:outline-none focus:border-stone-900 bg-white"
+                        className="w-full border border-stone-200 px-3 py-2.5 md:px-4 md:py-3 text-sm focus:outline-none focus:border-stone-900 bg-white"
                         placeholder="e.g. Rare Organic Succulent"
                       />
                     </div>
@@ -512,7 +510,7 @@ export default function AdminProducts() {
                           type="number" 
                           value={formData.price}
                           onChange={(e) => setFormData({...formData, price: e.target.value})}
-                          className="w-full border border-stone-200 px-4 py-3 text-sm focus:outline-none focus:border-stone-900 bg-white"
+                          className="w-full border border-stone-200 px-3 py-2.5 md:px-4 md:py-3 text-sm focus:outline-none focus:border-stone-900 bg-white"
                           placeholder="0.00"
                         />
                       </div>
@@ -523,7 +521,7 @@ export default function AdminProducts() {
                           type="number" 
                           value={formData.stock}
                           onChange={(e) => setFormData({...formData, stock: e.target.value})}
-                          className="w-full border border-stone-200 px-4 py-3 text-sm focus:outline-none focus:border-stone-900 bg-white"
+                          className="w-full border border-stone-200 px-3 py-2.5 md:px-4 md:py-3 text-sm focus:outline-none focus:border-stone-900 bg-white"
                           placeholder="0"
                         />
                       </div>
@@ -534,15 +532,12 @@ export default function AdminProducts() {
                       <select 
                         value={formData.category}
                         onChange={(e) => setFormData({...formData, category: e.target.value})}
-                        className="w-full border border-stone-200 px-4 py-3 text-sm focus:outline-none focus:border-stone-900 bg-white appearance-none"
+                        className="w-full border border-stone-200 px-3 py-2.5 md:px-4 md:py-3 text-sm focus:outline-none focus:border-stone-900 bg-white appearance-none"
                       >
                         <option value="Plants">Plants</option>
                         <option value="Seeds">Seeds</option>
                         <option value="Pots">Pots</option>
                         <option value="Care">Care & Tools</option>
-                        <option value="Tools">Tools</option>
-                        <option value="Organic Feed">Organic Feed</option>
-                        <option value="Fertilizers">Fertilizers</option>
                       </select>
                     </div>
 
@@ -572,16 +567,16 @@ export default function AdminProducts() {
                     rows={4}
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
-                    className="w-full border border-stone-200 px-6 py-4 text-sm focus:outline-none focus:border-stone-900 bg-white resize-none"
+                    className="w-full border border-stone-200 px-4 py-3 md:px-6 md:py-4 text-sm focus:outline-none focus:border-stone-900 bg-white resize-none"
                     placeholder="Describe the product origins and benefits..."
                   />
                 </div>
 
-                <div className="pt-6 flex gap-4 border-t border-stone-100">
+                <div className="pt-6 flex flex-col sm:flex-row gap-4 border-t border-stone-100">
                   <button 
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 bg-stone-900 text-white py-4 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-green-800 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                    className="flex-1 bg-stone-900 text-white py-3 md:py-4 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-green-800 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -594,7 +589,7 @@ export default function AdminProducts() {
                   <button 
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-8 border border-stone-200 text-[10px] font-black uppercase tracking-widest hover:border-stone-900 transition-all"
+                    className="px-6 md:px-8 py-3 md:py-4 border border-stone-200 text-[10px] font-black uppercase tracking-widest hover:border-stone-900 transition-all"
                   >
                     Discard
                   </button>
