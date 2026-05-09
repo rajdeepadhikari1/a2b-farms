@@ -87,7 +87,6 @@ export default function BlogDetail() {
           <div className="mt-20 pt-10 border-t border-stone-100 flex items-center justify-between">
             <div className="space-y-1">
               <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Next Article</h4>
-              <p className="text-xl font-serif font-bold italic">Top 5 Air-Purifying Plants for Your Bedroom</p>
             </div>
             <Link to="/blog" className="p-4 bg-stone-50 rounded-full hover:bg-stone-100 transition-colors">
               <ArrowRight className="w-6 h-6" />
